@@ -18,6 +18,21 @@ app.get('/',(req,res) => {
     res.send("Health Ok");
 });
 
+// details api//
+app.post('/Customerdetails',(req,res)=>{
+    db.collection('Details').insert(req.body,(err,result) => {
+      if(err) throw err;
+      res.send('data added');
+    })
+  });
+
+//get all details
+app.get('/Getdetails',(req,res) => {
+    db.collection('Details').find({}).toArray((err,result) => {
+      if(err) throw err;
+      res.send(result)
+    })
+  })
 
 //connection with mongo serer
 MongoClient.connect(mongourl,(err,connection) => {
