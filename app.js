@@ -6,7 +6,8 @@ const MongoClient = mongo.MongoClient;
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const mongourl = "mongodb+srv://dev:mongo123@cluster0.f8vmc.mongodb.net/Mywebsite?retryWrites=true&w=majority";
+var mongourl =  "mongodb+srv://ruchika:ruchika123@rest.ujhyi.mongodb.net/Mywebsite?retryWrites=true&w=majority";
+
 let db;
 
 app.use(cors());
@@ -16,6 +17,22 @@ app.use(bodyParser.json())
 //health Check
 app.get('/',(req,res) => {
     res.send("Health Ok");
+});
+
+//get about api//
+app.get('/About',(req,res) => {
+  db.collection('Aboutpage').find({}).toArray((err,result) => {
+    if(err) throw err;
+    res.send(result)
+  })
+})
+
+//post about api//
+app.post('/postabout',(req,res)=>{
+  db.collection('Aboutpage').insert(req.body,(err,result) => {
+    if(err) throw err;
+    res.send('data added');
+  })
 });
 
 // details api//
@@ -33,6 +50,38 @@ app.get('/Getdetails',(req,res) => {
       res.send(result)
     })
   })
+
+//get service details//
+app.get('/Service',(req,res) => {
+  db.collection('Servicepage').find({}).toArray((err,result) => {
+    if(err) throw err;
+    res.send(result)
+  })
+})
+
+//post service details//
+app.post('/Postservice',(req,res)=>{
+  db.collection('Servicepage').insert(req.body,(err,result) => {
+    if(err) throw err;
+    res.send('data added');
+  })
+});
+
+// get project //
+app.get('/Project',(req,res) => {
+  db.collection('Projectpage').find({}).toArray((err,result) => {
+    if(err) throw err;
+    res.send(result)
+  })
+});
+
+//post project//
+app.post('/Postproject',(req,res)=>{
+  db.collection('Projectpage').insert(req.body,(err,result) => {
+    if(err) throw err;
+    res.send('data added');
+  })
+});
 
 //connection with mongo serer
 MongoClient.connect(mongourl,(err,connection) => {
