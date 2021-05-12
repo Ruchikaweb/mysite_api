@@ -35,7 +35,7 @@ app.post('/postabout',(req,res)=>{
   })
 });
 
-// details api//
+// subscriber api//
 app.post('/Customerdetails',(req,res)=>{
     db.collection('Details').insert(req.body,(err,result) => {
       if(err) throw err;
@@ -43,7 +43,7 @@ app.post('/Customerdetails',(req,res)=>{
     })
   });
 
-//get all details
+//get all Subscriber
 app.get('/Getdetails',(req,res) => {
     db.collection('Details').find({}).toArray((err,result) => {
       if(err) throw err;
@@ -66,6 +66,57 @@ app.post('/Postservice',(req,res)=>{
     res.send('data added');
   })
 });
+
+//update service
+app.put('/updateservice',(req,res) => {
+  var id = mongo.ObjectID(req.body._id)
+  db.collection('Servicepage').update(
+      {_id:id},
+      {
+          $set:{
+              name:req.body.name,
+              thumb:req.body.thumb,
+              content:req.body.content
+              // isActive:true
+          }
+      },(err,result) => {
+          if(err) throw err;
+          res.status(200).send('Data Updated')
+      }
+  )
+})
+
+//soft delete service//
+app.put('/deactiveservice',(req,res) => {
+  var id = mongo.ObjectID(req.body._id)
+  db.collection('Servicepage').update(
+      {_id:id},
+      {
+          $set:{
+              isActive:false
+          }
+      },(err,result) => {
+          if(err) throw err;
+          res.status(200).send('Data Updated')
+      }
+  )
+});
+
+//Reactive
+app.put('/activateservice',(req,res) => {
+  var id = mongo.ObjectID(req.body._id)
+  db.collection('Servicepage').update(
+      {_id:id},
+      {
+          $set:{
+              isActive:true
+          }
+      },(err,result) => {
+          if(err) throw err;
+          res.status(200).send('Data Updated')
+      }
+  )
+}); 
 
 // get project //
 app.get('/Project',(req,res) => {
