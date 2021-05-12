@@ -68,9 +68,9 @@ app.post('/Postservice',(req,res)=>{
 });
 
 //update service
-app.put('/updateservice',(req,res) => {
-  var id = mongo.ObjectID(req.body._id)
-  db.collection('Servicepage').update(
+app.put('/updateservice/:id',(req,res) => {
+  var id = Number(req.params.id)
+  db.collection('Servicepage').updateOne(
       {_id:id},
       {
           $set:{
@@ -87,9 +87,9 @@ app.put('/updateservice',(req,res) => {
 })
 
 //soft delete service//
-app.put('/deactiveservice',(req,res) => {
-  var id = mongo.ObjectID(req.body._id)
-  db.collection('Servicepage').update(
+app.put('/deactiveservice/:id',(req,res) => {
+  var id = Number(req.params.id)
+  db.collection('Servicepage').updateOne(
       {_id:id},
       {
           $set:{
@@ -103,9 +103,9 @@ app.put('/deactiveservice',(req,res) => {
 });
 
 //Reactive
-app.put('/activateservice',(req,res) => {
-  var id = mongo.ObjectID(req.body._id)
-  db.collection('Servicepage').update(
+app.put('/activateservice/:id',(req,res) => {
+  var id = Number(req.params.id)
+  db.collection('Servicepage').updateOne(
       {_id:id},
       {
           $set:{
