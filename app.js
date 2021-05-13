@@ -35,7 +35,7 @@ app.post('/postabout',(req,res)=>{
   })
 });
 
-// subscriber api//
+// post subscriber api//
 app.post('/Customerdetails',(req,res)=>{
     db.collection('Details').insert(req.body,(err,result) => {
       if(err) throw err;
@@ -53,7 +53,7 @@ app.get('/Getdetails',(req,res) => {
 
 //get service details//
 app.get('/Service',(req,res) => {
-  db.collection('Servicepage').find({}).toArray((err,result) => {
+  db.collection('Servicepage').find({isActive:true}).toArray((err,result) => {
     if(err) throw err;
     res.send(result)
   })
@@ -69,7 +69,7 @@ app.post('/Postservice',(req,res)=>{
 
 //update service
 app.put('/updateservice/:id',(req,res) => {
-  var id = Number(req.params.id)
+  var id = mongo.ObjectID(req.params.id)
   db.collection('Servicepage').updateOne(
       {_id:id},
       {
@@ -88,7 +88,7 @@ app.put('/updateservice/:id',(req,res) => {
 
 //soft delete service//
 app.put('/deactiveservice/:id',(req,res) => {
-  var id = Number(req.params.id)
+  var id = mongo.ObjectID(req.params.id)
   db.collection('Servicepage').updateOne(
       {_id:id},
       {
@@ -104,7 +104,7 @@ app.put('/deactiveservice/:id',(req,res) => {
 
 //Reactive
 app.put('/activateservice/:id',(req,res) => {
-  var id = Number(req.params.id)
+  var id = mongo.ObjectID(req.params.id)
   db.collection('Servicepage').updateOne(
       {_id:id},
       {
@@ -117,6 +117,15 @@ app.put('/activateservice/:id',(req,res) => {
       }
   )
 }); 
+
+//Hard delete service ///
+app.delete('/deleteservice/:id',(req,res) =>{
+  var id = mongo.ObjectID(req.params.id)
+  db.collection('Servicepage').remove({_id:id}, (err,result) =>{
+    if(err) throw err;
+    res.status(200).send('deleted')
+  })
+}) ;
 
 // get project //
 app.get('/Project',(req,res) => {
