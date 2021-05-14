@@ -57,7 +57,16 @@ app.get('/Service',(req,res) => {
     if(err) throw err;
     res.send(result)
   })
-})
+}) 
+
+//get service with id //
+app.get('/Service/:id',(req,res)=>{
+  var id = mongo.ObjectID(req.params.id)
+  db.collection('Servicepage').find({_id:id}).toArray((err,result) => {
+    if(err) throw err;
+    res.send(result)
+  })
+});
 
 //post service details//
 app.post('/Postservice',(req,res)=>{
@@ -135,6 +144,15 @@ app.get('/Project',(req,res) => {
   })
 });
 
+///get project with id 
+app.get('/Project/:id',(req,res) => {
+  var id =  mongo.ObjectID(req.params.id)
+  db.collection('Projectpage').find({_id:id}).toArray((err,result) => {
+    if(err) throw err;
+    res.send(result)
+  })
+});
+
 //post project//
 app.post('/Postproject',(req,res)=>{
   db.collection('Projectpage').insert(req.body,(err,result) => {
@@ -142,6 +160,17 @@ app.post('/Postproject',(req,res)=>{
     res.send('data added');
   })
 });
+
+//login api //
+app.get('/login',(req,res)=>{
+    var email = req.body.email
+    var password = req.body.password
+    db.collection('Admin').find({email:email,password:password}).toArray((err,result) => {
+      if(err) throw err;
+      res.send(result)
+    })
+  });
+
 
 //connection with mongo serer
 MongoClient.connect(mongourl,(err,connection) => {
