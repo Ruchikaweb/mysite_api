@@ -60,7 +60,7 @@ app.get('/Service',(req,res) => {
 }) 
 
 //get service with id //
-app.get('/Service/:id',(req,res)=>{
+app.get('/Services/:id',(req,res)=>{
   var id = mongo.ObjectID(req.params.id)
   db.collection('Servicepage').find({_id:id}).toArray((err,result) => {
     if(err) throw err;
@@ -145,7 +145,7 @@ app.get('/Project',(req,res) => {
 });
 
 ///get project with id 
-app.get('/Project/:id',(req,res) => {
+app.get('/Projects/:id',(req,res) => {
   var id =  mongo.ObjectID(req.params.id)
   db.collection('Projectpage').find({_id:id}).toArray((err,result) => {
     if(err) throw err;
