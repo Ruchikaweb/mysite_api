@@ -128,6 +128,26 @@ app.put('/activateservice/:id',(req,res) => {
   )
 }); 
 
+//soft delete//
+app.put('/changeservicestatus/:id',(req,res) =>{
+  var id = mongo.ObjectID(req.params.id)
+  var del = false
+  if(req.body.status=="true"){
+    del=true
+  }
+  db.collection('Servicepage').updateOne(
+    {_id:id},
+    {
+      $set:{
+          isActive:del
+      }
+    },(err,result) => {
+      if(err) throw err;
+      res.status(200).send('Data Updated')
+  }
+  )
+})
+
 //Hard delete service ///
 app.delete('/deleteservice/:id',(req,res) =>{
   var id = mongo.ObjectID(req.params.id)
