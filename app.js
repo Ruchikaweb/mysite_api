@@ -59,6 +59,15 @@ app.get('/Service',(req,res) => {
   })
 }) 
 
+
+//get Service deatails for admin//
+app.get('/Serviceforadmin',(req,res) => {
+  db.collection('Servicepage').find().toArray((err,result) => {
+    if(err) throw err;
+    res.send(result)
+  })
+}) 
+
 //get service with id //
 app.get('/Services/:id',(req,res)=>{
   var id = mongo.ObjectID(req.params.id)
