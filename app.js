@@ -140,9 +140,9 @@ app.put('/activateservice/:id',(req,res) => {
 //soft delete//
 app.put('/changeservicestatus/:id',(req,res) =>{
   var id = mongo.ObjectID(req.params.id)
-  var del = false
+  var del = true
   if(req.body.status=="true"){
-    del=true
+    del= false
   }
   db.collection('Servicepage').updateOne(
     {_id:id},
