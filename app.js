@@ -85,7 +85,8 @@ app.put('/updateservice/:id',(req,res) => {
           $set:{
               name:req.body.name,
               thumb:req.body.thumb,
-              content:req.body.content
+              content:req.body.content,
+              contentt:req.body.contentt
               // isActive:true
           }
       },(err,result) => {
