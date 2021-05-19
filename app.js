@@ -141,7 +141,7 @@ app.put('/activateservice/:id',(req,res) => {
 app.put('/changeservicestatus/:id',(req,res) =>{
   var id = mongo.ObjectID(req.params.id)
   var del = true
-  if(req.body.status=="true"){
+  if(req.body.status==true){
     del= false
   }
   db.collection('Servicepage').updateOne(
