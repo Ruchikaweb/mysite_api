@@ -59,6 +59,14 @@ app.get('/Service',(req,res) => {
   })
 }) 
 
+//get service for admin //
+app.get('/Serviceforsoftdel',(req,res) => {
+  db.collection('Servicepage').find({isActive:false}).toArray((err,result) => {
+    if(err) throw err;
+    res.send(result)
+  })
+}) 
+
 
 //get Service deatails for admin//
 app.get('/Serviceforadmin',(req,res) => {
