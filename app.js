@@ -203,7 +203,7 @@ app.post('/Postproject',(req,res)=>{
 });
 
 //login api //
-app.get('/login',(req,res)=>{
+app.post('/login',(req,res)=>{
     var email = req.body.email
     var password = req.body.password
     db.collection('Admin').find({email:email,password:password}).toArray((err,result) => {
